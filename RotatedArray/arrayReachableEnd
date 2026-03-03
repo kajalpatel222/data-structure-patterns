@@ -1,0 +1,16 @@
+/**
+ * @param {number[]} numbers
+ * @return {boolean}
+ */
+function arrayReachableEnd(numbers) {
+  let farthest = 0;
+
+  for (let i = 0; i < numbers.length; i++) {
+    if (i > farthest) return false;
+    farthest = Math.max(farthest, i + numbers[i]);
+  }
+
+  return farthest >= numbers.length - 1;
+}
+
+console.log(arrayReachableEnd([2, 3, 1, 1, 4])); // true
