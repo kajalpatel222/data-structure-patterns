@@ -1,0 +1,28 @@
+function levelOrder(root){
+    
+    if(!root) return [];
+    
+    let queue = [root];
+    let ans = [];
+    
+    while(queue.length > 0){
+        let node = queue.shift();
+        ans.push(node.val);
+            
+        if(node.left)
+            queue.push(node.left);
+            
+        if(node.right)
+            queue.push(node.right);
+    }
+    
+    return ans;
+}
+
+const tree = {
+  val: 8,
+  left: { val: 3, left: { val: 1 }, right: { val: 6 } },
+  right: { val: 10, right: { val: 14 } }
+};
+
+console.log(levelOrder(tree)); // [8, 3, 10, 1, 6, 14]
