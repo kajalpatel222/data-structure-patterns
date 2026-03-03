@@ -1,0 +1,25 @@
+/**
+ * @param {string} str
+ * @return {boolean}
+ */
+function isBalancedBrackets(str) {
+  const map = new Map();
+  const stack = [];
+
+  map.set(")", "(");
+  map.set("}", "{");
+  map.set("]", "[");
+
+  for (let i = 0; i < str.length; i++) {
+    if (map.has(str[i])) {
+      const ch = stack.pop();
+      if (ch !== map.get(str[i])) return false;
+    } else {
+      stack.push(str[i]);
+    }
+  }
+
+  return stack.length === 0;
+}
+
+console.log(isBalancedBrackets("([]){}")); // true
