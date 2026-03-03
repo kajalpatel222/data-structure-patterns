@@ -1,0 +1,26 @@
+/**
+ * @param {number[]} numbers
+ * @return {number}
+ */
+function longestConsecutiveNumberSeq(numbers) {
+  let num_set = new Set(numbers);
+  let longeststreak = 1;
+
+  for (let num of num_set) {
+    if (!num_set.has(num - 1)) {
+      let currNum = num;
+      let currStreak = 1;
+
+      while (num_set.has(currNum + 1)) {
+        currNum = currNum + 1;
+        currStreak = currStreak + 1;
+      }
+
+      longeststreak = Math.max(longeststreak, currStreak);
+    }
+  }
+
+  return longeststreak;
+}
+
+console.log(longestConsecutiveNumberSeq([100, 4, 200, 1, 3, 2])) // 4
