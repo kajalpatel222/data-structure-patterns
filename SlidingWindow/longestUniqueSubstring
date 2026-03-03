@@ -1,0 +1,23 @@
+/**
+ * @param {string} str
+ * @return {number}
+ */
+function longestUniqueSubstring(str) {
+  if (str.length === 0) return 0;
+
+  let windowStart = 0;
+  let maxLength = 0;
+  const map = new Map();
+
+  for (let i = 0; i < str.length; i++) {
+    if (map.has(str[i])) {
+      windowStart = Math.max(windowStart, map.get(str[i]) + 1);
+    }
+    maxLength = Math.max(maxLength, i - windowStart + 1);
+    map.set(str[i], i);
+  }
+
+  return maxLength;
+}
+
+console.log(longestUniqueSubstring("abcabcbb")); // change input as needed
