@@ -1,0 +1,23 @@
+/**
+ * @param {number[]} numbers
+ * @return {number[]}
+ */
+function arrayProductExcludingCurrent(numbers) {
+  let prefix = 1, suffix=1;
+
+  let res = new Array(numbers.length).fill(1);
+
+  for (let i = 0; i < numbers.length; i++) {
+    res[i] *= prefix;
+    prefix *= numbers[i];
+  }
+
+  for(let i= numbers.length -1; i>=0; i--){
+      res[i] *= suffix;
+      suffix *= numbers[i]
+  }
+  
+  return res
+}
+
+console.log(arrayProductExcludingCurrent([1, 2, 3, 4])) // [24, 12, 8, 6]
