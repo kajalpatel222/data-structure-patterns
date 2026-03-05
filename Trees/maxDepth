@@ -1,0 +1,13 @@
+function maxDepth(root){
+    if(root == null) return 0;
+    
+    return (1+ Math.max(maxDepth(root.left), maxDepth(root.right)))
+}
+
+const root = {
+  val: 8,
+  left: { val: 3, left: { val: 1 }, right: { val: 6 } },
+  right: { val: 10, right: { val: 14 } }
+};
+
+console.log("Max Depth of given tree", maxDepth(root));
