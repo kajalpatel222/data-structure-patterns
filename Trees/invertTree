@@ -1,0 +1,21 @@
+function invertTree(root) {
+  if (root == null) return null;
+
+  let temp = root.left;
+  root.left = root.right;
+  root.right = temp;
+
+  invertTree(root.left);
+  invertTree(root.right);
+
+  return root;
+}
+
+const root = {
+  val: 8,
+  left: { val: 3, left: { val: 1 }, right: { val: 6 } },
+  right: { val: 10, right: { val: 14 } }
+};
+
+invertTree(root);
+console.log("BFS after invert:", levelOrder(root)); // [8, 10, 3, 14, 6, 1]
