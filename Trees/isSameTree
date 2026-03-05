@@ -1,3 +1,4 @@
+// note here the inputs are 2 different trees
 function isSameTree(a,b){
     
    if(a == null && b== null) return true;
