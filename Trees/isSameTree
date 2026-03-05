@@ -1,0 +1,31 @@
+function isSameTree(a,b){
+    
+   if(a == null && b== null) return true;
+   if(a == null || b== null) return false;
+   if(a.val !== b.val) return false;
+   
+   return (isSameTree(a.left, b.left) && isSameTree(a.right, b.right))
+
+   
+}
+
+const t1 = {
+  val: 1,
+  left: { val: 2 },
+  right: { val: 3 }
+};
+
+const t2 = {
+  val: 1,
+  left: { val: 2 },
+  right: { val: 3 }
+};
+
+const t3 = {
+  val: 1,
+  left: { val: 2 },
+  right: { val: 4 } // different here
+};
+
+console.log(isSameTree(t1, t2)); // true
+console.log(isSameTree(t1, t3)); // false
