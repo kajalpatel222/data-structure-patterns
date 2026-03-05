@@ -1,0 +1,34 @@
+// Please note that symmetric means not equal - it should be same if you mirror the tree
+
+function isSymmetric(root) {
+
+    if(root == null) return true;
+    
+    function isMirror(a,b){
+        if(a==null && b==null)return true;
+        if(a==null || b==null)return false;
+        if(a.val !== b.val) return false;
+        
+        return((isMirror(a.left, b.right) && isMirror(a.right, b.left)))
+
+    }
+    
+    return (isMirror(root.left,root.right))
+}
+
+// Example 1 (symmetric) ✅
+const symmetricTree = {
+  val: 1,
+  left: { val: 2, left: { val: 3 }, right: { val: 4 } },
+  right: { val: 2, left: { val: 4 }, right: { val: 3 } }
+};
+
+// Example 2 (not symmetric) ❌
+const notSymmetricTree = {
+  val: 1,
+  left: { val: 2, right: { val: 3 } },
+  right: { val: 2, right: { val: 3 } }
+};
+
+console.log("symmetricTree:", isSymmetric(symmetricTree));      // true
+console.log("notSymmetricTree:", isSymmetric(notSymmetricTree)); // false
