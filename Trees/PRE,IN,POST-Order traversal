@@ -1,0 +1,62 @@
+// sample tree
+const root = {
+  val: 8,
+  left: { val: 3, left: { val: 1 }, right: { val: 6 } },
+  right: { val: 10, right: { val: 14 } }
+};
+
+function preorder(root){
+    
+    let res= [];
+    
+    function dfs(node){
+        if(node == null) return;
+        
+        res.push(node.val);
+        dfs(node.left);
+        dfs(node.right)
+        
+    }
+    
+    dfs(root);
+    return res;
+}
+
+function inorder(root){
+    
+    let res= [];
+    
+    function dfs(node){
+        if(node == null) return;
+        
+        dfs(node.left);
+        res.push(node.val);
+        dfs(node.right);
+        
+    }
+    
+    dfs(root);
+   return res;
+}
+
+function postorder(root){
+    let res= []
+    
+    function dfs(node){
+        if(node == null) return;
+        
+        dfs(node.left);
+        dfs(node.right);
+        res.push(node.val);
+    }
+    
+    dfs(root);
+    
+    return res
+}
+
+
+
+console.log("PRE:", preorder(root));   // [8, 3, 1, 6, 10, 14]
+console.log("IN:", inorder(root));     // [1, 3, 6, 8, 10, 14]
+console.log("POST:", postorder(root)); // [1, 6, 3, 14, 10, 8]
