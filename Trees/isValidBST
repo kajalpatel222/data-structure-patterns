@@ -1,0 +1,36 @@
+
+function isValidBST(root){
+    
+    // if node == null -> return true
+    // if node.val <= min OR node.val <=max -> return false
+    // dfs(node.left, min, node.val) && dfs(node.right, node.val, max)
+    
+    function dfs(node, min, max){
+        if(node == null) return true
+        
+        if (node.val <= min || node.val >=max ) return false
+        
+        return (dfs(node.left, min, node.val)  && dfs(node.right, node.val, max))
+        
+    }
+    
+    return (dfs(root, -Infinity, +Infinity))
+
+}
+
+// ✅ Valid BST
+const t1 = {
+  val: 8,
+  left: { val: 3, left: { val: 1 }, right: { val: 6 } },
+  right: { val: 10, right: { val: 14 } }
+};
+
+// ❌ Invalid BST (6 is in right subtree of 10 but < 10)
+const t2 = {
+  val: 10,
+  left: { val: 5 },
+  right: { val: 15, left: { val: 6 }, right: { val: 20 } }
+};
+
+console.log("t1 valid?", isValidBST(t1)); // true
+console.log("t2 valid?", isValidBST(t2)); // false
