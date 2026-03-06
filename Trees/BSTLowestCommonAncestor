@@ -1,0 +1,33 @@
+function BSTLowestCommonAncestor(root, a, b) {
+    
+   let curr = root;
+   
+   while(curr !== null){
+       if(a< curr.val && b < curr.val){
+           curr = curr.left
+       } else if(a > curr.val && b > curr.val){
+           curr = curr.right
+       } else {
+           return curr.val
+       }
+   }
+   
+   return null
+}
+
+const root = {
+  val: 20,
+  left: {
+    val: 10,
+    left: { val: 5 },
+    right: { val: 15, left: { val: 13 } }
+  },
+  right: {
+    val: 30,
+    left: { val: 25 },
+    right: { val: 40 }
+  }
+};
+
+console.log(BSTLowestCommonAncestor(root, 13, 15)); // 15
+
