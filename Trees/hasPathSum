@@ -1,0 +1,39 @@
+function hasPathSum(root, targetSum) {
+
+   function dfs(node, remaining){
+       
+       if(node==null ) return false;
+        remaining -= node.val
+
+       if(node.left == null && node.right== null)
+        return remaining ==0
+       
+       return (dfs(node.left, remaining) || dfs(node.right, remaining))
+       
+   }
+   
+   return dfs(root, targetSum)
+   
+}
+
+// demo
+const root = {
+  val: 5,
+  left: {
+    val: 4,
+    left: {
+      val: 11,
+      left: { val: 7 },
+      right: { val: 2 }
+    }
+  },
+  right: {
+    val: 8,
+    left: { val: 13 },
+    right: { val: 4, right: { val: 1 } }
+  }
+};
+
+console.log(hasPathSum(root, 22)); // true
+console.log(hasPathSum(root, 26)); // true
+console.log(hasPathSum(root, 19)); // false
