@@ -1,0 +1,42 @@
+function isSubtree(S, T){
+    if(T == null) return true;
+    
+    if(S== null) return false;
+    
+    if(sameTree(S,T) == true) return true;
+    
+    function sameTree(a,b){
+        if(a == null || b == null) return a==b;
+        if(a.val !== b.val ) return false;
+        
+        return (sameTree(a.left, b.left) && sameTree(a.right, b.right))
+    }
+    
+    return(sameTree(S.left, T) || sameTree(S.right, T))
+    
+    
+}
+
+// TRUE example
+const S1 = {
+  val: 3,
+  left: { val: 4, left: { val: 1 }, right: { val: 2 } },
+  right: { val: 5 }
+};
+const T1 = { val: 4, left: { val: 1 }, right: { val: 2 } };
+
+console.log("S1 contains T1?", isSubtree(S1, T1)); // true
+
+// FALSE example (extra child makes shape different)
+const S2 = {
+  val: 3,
+  left: {
+    val: 4,
+    left: { val: 1 },
+    right: { val: 2, left: { val: 0 } }
+  },
+  right: { val: 5 }
+};
+const T2 = { val: 4, left: { val: 1 }, right: { val: 2 } };
+
+console.log("S2 contains T2?", isSubtree(S2, T2)); // false
