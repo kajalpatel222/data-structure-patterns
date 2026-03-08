@@ -31,3 +31,38 @@ const root = {
 
 console.log(BSTLowestCommonAncestor(root, 13, 15)); // 15
 
+
+/* Another way of doing it through recursion 
+    export default function BSTLowestCommonAncestor(root, a, b) {
+ // lowest common ancestor
+
+ // check if a > root && b> root -> return LCA(node.right,a,b)
+ // check if a < root && b< root -> return LCA(node.left,a,b)
+ // else return node
+
+  function LCA(node,a,b){
+
+    if(node == null) return null;
+
+    if(a.val > node.val && b.val> node.val)
+      return LCA(node.right, a,b);
+    if( a.val < node.val && b.val< node.val)
+      return LCA(node.left, a,b);
+    else
+        return node
+
+  }
+
+  return LCA(root, a, b);
+}
+
+/*
+      3
+    1   7
+null 2 6 10
+
+
+*/
+
+*/
+
