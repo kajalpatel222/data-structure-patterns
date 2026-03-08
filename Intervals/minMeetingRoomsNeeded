@@ -1,0 +1,23 @@
+function minMeetingRoomsNeeded(intervals) {
+  if (intervals.length === 0) return 0;
+
+  let starts = intervals.map((i) => i[0]).sort((a, b) => a - b);
+  let ends = intervals.map((i) => i[1]).sort((a, b) => a - b);
+
+  let room = 0,
+    maxRoom = 0,
+    endPtr = 0;
+
+  for (let i = 0; i < starts.length; i++) {
+    if (starts[i] < ends[endPtr]) {
+      room++;
+      maxRoom = Math.max(room, maxRoom);
+    } else {
+      endPtr++;
+    }
+  }
+
+  return maxRoom;
+}
+
+console.log(minMeetingRoomsNeeded([[1, 5], [2, 6], [8, 9]]));
