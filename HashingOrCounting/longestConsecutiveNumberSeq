@@ -7,6 +7,7 @@ function longestConsecutiveNumberSeq(numbers) {
   let longeststreak = 1;
 
   for (let num of num_set) {
+    // “Which numbers are starts of sequences?”
     if (!num_set.has(num - 1)) {
       let currNum = num;
       let currStreak = 1;
