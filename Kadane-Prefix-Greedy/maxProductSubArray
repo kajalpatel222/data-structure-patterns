@@ -1,0 +1,20 @@
+function maxProductSubArray(numbers) {
+  let maxEndingHere = numbers[0];
+  let minEndingHere = numbers[0];
+  let answer = numbers[0];
+
+  for (let i = 1; i < numbers.length; i++) {
+    let num = numbers[i];
+    let prevMax = maxEndingHere;
+    let prevMin = minEndingHere;
+
+    maxEndingHere = Math.max(num, num * prevMax, num * prevMin);
+    minEndingHere = Math.min(num, num * prevMax, num * prevMin);
+
+    answer = Math.max(answer, maxEndingHere);
+  }
+
+  return answer;
+}
+
+console.log(maxProductSubArray([2, 3, -2, 4])); // 6
