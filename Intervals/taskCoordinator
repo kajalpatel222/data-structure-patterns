@@ -1,0 +1,31 @@
+function taskCoordinator(tasks, k) {
+  // If the highest frequency is maxFreq then those tasks create maxFreq-1 gaps between them
+  // Each gaps needs size k - so rough empty slots ->  (maxfreq -1) * k
+  // There is one more detail when multiple tasks tie for highest frequency, but this is the basic intuition.
+
+  //But the schedule frame also includes the repeated max-frequency tasks that start each block:
+  // So instead of counting only gaps, we count full blocks:
+
+  //(maxFreq - 1) * (k + 1)
+  //Then why + maxCount? -> Because the last row may contain more than one task tied for highest frequency
+
+  let maxfreq = 0;
+  let maxCount = 0;
+  let freqMap = new Map();
+
+  for (let i = 0; i < tasks.length; i++) {
+    freqMap.set(tasks[i], (freqMap.get(tasks[i]) ?? 0) + 1);
+    maxfreq = Math.max(maxfreq, freqMap.get(tasks[i]));
+  }
+
+
+  for (let [key, value] of freqMap) {
+    if (value == maxfreq) {
+      maxCount++;
+    }
+  }
+
+  return Math.max(tasks.length, (maxfreq - 1) * (k + 1) + maxCount);
+}
+
+console.log(taskCoordinator(["A", "A", "A", "B", "B", "B"], 2)); // 8
