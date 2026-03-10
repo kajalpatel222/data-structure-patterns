@@ -1,0 +1,95 @@
+/**
+ * Returns the shortest substring in str1 that contains all characters of str2.
+ * If no such substring exists, returns an empty string.
+ *
+ * Example:
+ * str1 = "ADOBECODEBANC", str2 = "ABC"  ->  "BANC"
+ */
+function shortestSubstringContainingCharacters(str1, str2) {
+  // Step 1: Build a frequency map for str2.
+  // This map tells us how many of each character we still need.
+  //
+  // Example for "AABC":
+  // A -> 2
+  // B -> 1
+  // C -> 1
+  let freqMap = new Map();
+
+  for (let i = 0; i < str2.length; i++) {
+    freqMap.set(str2[i], (freqMap.get(str2[i]) ?? 0) + 1);
+  }
+
+  // Step 2: Set up sliding window variables.
+  //
+  // windowStart -> left side of the window
+  // matched     -> how many total required characters are currently satisfied
+  // minLength   -> length of the best valid window found so far
+  // subStrStart -> starting index of the best valid window
+  let windowStart = 0;
+  let matched = 0;
+  let minLength = Infinity;
+  let subStrStart = 0;
+
+  // Step 3: Expand the window by moving windowEnd to the right.
+  for (let windowEnd = 0; windowEnd < str1.length; windowEnd++) {
+    let rightChar = str1[windowEnd];
+
+    // If this character is part of the pattern,
+    // reduce its needed count because it has now entered the window.
+    if (freqMap.has(rightChar)) {
+      freqMap.set(rightChar, freqMap.get(rightChar) - 1);
+
+      // If the updated count is still >= 0,
+      // this character was genuinely needed, so we increase matched.
+      //
+      // Why >= 0 ?
+      //  1 -> 0 means we satisfied one needed character
+      //  0 -> -1 means this one is extra, so matched should NOT increase
+      if (freqMap.get(rightChar) >= 0) {
+        matched++;
+      }
+    }
+
+    // Step 4: If matched === str2.length,
+    // the current window contains all required characters.
+    // Now try shrinking it from the left to make it as small as possible.
+    while (matched === str2.length) {
+      let windowLength = windowEnd - windowStart + 1;
+
+      // Save this window if it is smaller than the best one seen so far.
+      if (windowLength < minLength) {
+        minLength = windowLength;
+        subStrStart = windowStart;
+      }
+
+      // Remove the leftmost character from the window.
+      let leftChar = str1[windowStart];
+      windowStart++;
+
+      if (freqMap.has(leftChar)) {
+        // If freqMap.get(leftChar) === 0,
+        // this character was exactly satisfied in the window.
+        // Removing it will make the window invalid, so matched must decrease.
+        //
+        // If the value is negative, it means this character was extra,
+        // so removing it is safe and matched should not change.
+        if (freqMap.get(leftChar) === 0) {
+          matched--;
+        }
+
+        // Since leftChar is leaving the window,
+        // we increase its needed count back in the map.
+        freqMap.set(leftChar, freqMap.get(leftChar) + 1);
+      }
+    }
+  }
+
+  // Step 5: If minLength never changed,
+  // no valid window was found.
+  if (minLength === Infinity) return "";
+
+  // Otherwise return the smallest valid window.
+  return str1.slice(subStrStart, subStrStart + minLength);
+}
+
+console.log(shortestSubstringContainingCharacters("ADOBECODEBANC", "ABC")); // "BANC"
