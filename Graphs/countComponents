@@ -1,0 +1,32 @@
+function countComponents(graph) {
+  let visited = new Set();
+  let groupCount = 0;
+
+  function dfs(node) {
+    if (visited.has(node)) return;
+
+    visited.add(node);
+
+    for (let neighbor of graph[node]) {
+      dfs(neighbor);
+    }
+  }
+
+  for (let node in graph) {
+    if (!visited.has(node)) {
+      dfs(node);
+      groupCount++;
+    }
+  }
+
+  return groupCount;
+}
+
+const graph = {
+  A: ['B'],
+  B: ['A'],
+  C: ['D'],
+  D: ['C']
+};
+
+console.log(countComponents(graph)); // 2
