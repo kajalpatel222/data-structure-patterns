@@ -1,0 +1,45 @@
+// Depth First Search (DFS) - Recursive (Graph)
+// --------------------------------------------
+// Traverses a graph starting from a given node using recursion.
+// Uses a visited set to avoid infinite loops in cyclic graphs.
+
+function dfsRecursive(graph, start) {
+  const visited = new Set();
+  const result = [];
+
+  function dfs(node) {
+    // Base case: skip if already visited
+    if (visited.has(node)) return;
+
+    // Mark visited and process node
+    visited.add(node);
+    result.push(node);
+
+    // Explore all neighbors
+    for (const neighbor of graph[node]) {
+      dfs(neighbor);
+    }
+  }
+
+  // Start DFS traversal
+  dfs(start);
+
+  return result;
+}
+
+
+// ----------------------
+// Example Usage
+// ----------------------
+
+const graph = {
+  A: ['B', 'C'],
+  B: ['A', 'D'],
+  C: ['A'],
+  D: ['B']
+};
+
+const start = 'A';
+
+const output = dfsRecursive(graph, start);
+console.log('DFS Traversal:', output);
