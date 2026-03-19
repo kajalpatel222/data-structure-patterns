@@ -1,0 +1,36 @@
+function dfs(graph, start){
+    // create 2 things dfs need a stack and a visited set
+    
+    let stack = [start];
+    let visited = new Set();
+    
+    while(stack.length > 0){
+        // get element of stack
+        let node = stack.pop();
+        
+        
+        // check if it is already visted - yes - then skip
+        if(visited.has(node)){continue;}
+        
+        // if not then add to visited set
+        visited.add(node);
+        console.log(node);
+        
+        //After visiting node, look at all its neighbors and push them onto the stack.
+        for(let neighbor of graph[node]){
+            stack.push(neighbor)
+        }
+    }
+    
+}
+
+const graph = {
+  A: ['B', 'C'],
+  B: ['A', 'D'],
+  C: ['A'],
+  D: ['B']
+};
+
+const start = 'A';
+
+console.log(dfs(graph, start))
