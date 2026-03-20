@@ -5,13 +5,11 @@ function minMeetingRoomsNeeded(intervals) {
   let ends = intervals.map((i) => i[1]).sort((a, b) => a - b);
 
   let room = 0,
-    maxRoom = 0,
     endPtr = 0;
 
   for (let i = 0; i < starts.length; i++) {
     if (starts[i] < ends[endPtr]) {
       room++;
-      maxRoom = Math.max(room, maxRoom);
     } else {
       endPtr++;
     }
