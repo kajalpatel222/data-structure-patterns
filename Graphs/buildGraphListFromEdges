@@ -1,23 +1,19 @@
-function buildGraphListFromEdges(edges, num) {
-    
-    let graphList = {};
-    
-    for(let i=0; i<num; i++){
-        graphList[i] = new Array();
-    }
-    
-    
-   for(let [a,b] of edges){
-       graphList[a].push(b);
-       graphList[b].push(a)
-   }
-   
-   return graphList
-   
-    
-}
+function getGraphAdjacencyList(edges){
+         
+         const graphList = {}
+     
+         for(let [a,b] of edges){
+             if(!graphList[a]) graphList[a] = new Array();
+             if(!graphList[b]) graphList[b] = new Array();
+             
+             graphList[a].push(b)
+             graphList[b].push(a)
+         }
+     
+        return graphList
+         
+     }
 
-let num = 6;
 let edges = [[0,1],[4,5],[2,4],[1,3],[0,2]];
 
-console.log(buildGraphListFromEdges(edges, num))
+console.log(getGraphAdjacencyList(edges, num))
