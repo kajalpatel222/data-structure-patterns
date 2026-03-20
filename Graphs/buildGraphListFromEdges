@@ -16,4 +16,4 @@ function getGraphAdjacencyList(edges){
 
 let edges = [[0,1],[4,5],[2,4],[1,3],[0,2]];
 
-console.log(getGraphAdjacencyList(edges, num))
+console.log(getGraphAdjacencyList(edges))
