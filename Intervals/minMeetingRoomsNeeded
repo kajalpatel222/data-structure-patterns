@@ -1,6 +1,8 @@
 function minMeetingRoomsNeeded(intervals) {
   if (intervals.length === 0) return 0;
 
+  //For every new meeting start time, I compare it with the earliest ending meeting.
+
   let starts = intervals.map((i) => i[0]).sort((a, b) => a - b);
   let ends = intervals.map((i) => i[1]).sort((a, b) => a - b);
 
